@@ -98,23 +98,27 @@ const App: React.FC = () => {
 
     const initFirebase = async () => {
       try {
-        if (isFirebaseConfigured()) {
+        console.log('🔥 Firebase 초기화 시작...');
+        const configured = isFirebaseConfigured();
+        console.log('🔥 Firebase 설정 확인:', configured);
+        
+        if (configured) {
           try {
             initializeFirebase();
             if (isMounted) {
               setIsFirebaseReady(true);
+              console.log('✅ Firebase 초기화 성공!');
             }
           } catch (initError: any) {
             // Firebase 초기화 실패해도 앱은 계속 작동
             console.error('❌ Firebase 초기화 실패:', initError);
             if (isMounted) {
               setIsFirebaseReady(false);
-              // 사용자에게 알림
-              console.warn('⚠️ Firebase가 설정되지 않았거나 잘못된 설정입니다. 로그인 기능을 사용할 수 없습니다.');
+              console.warn('⚠️ Firebase가 설정되지 않았거나 잘못된 설정입니다.');
             }
           }
         } else {
-          console.warn('⚠️ Firebase 설정이 없습니다.');
+          console.warn('⚠️ Firebase 설정이 검증되지 않았습니다.');
           if (isMounted) {
             setIsFirebaseReady(false);
           }
@@ -192,8 +196,11 @@ const App: React.FC = () => {
 
   // Google 로그인
   const handleLogin = async () => {
+    console.log('🔐 로그인 버튼 클릭, isFirebaseReady:', isFirebaseReady);
+    
+    // Firebase가 준비되지 않았을 때만 설정 가이드 표시
     if (!isFirebaseReady) {
-      // Firebase 설정이 없을 때 안내 모달 표시
+      console.warn('⚠️ Firebase가 준비되지 않아 설정 가이드를 표시합니다.');
       setShowDomainGuide(true);
       return;
     }
@@ -203,15 +210,20 @@ const App: React.FC = () => {
       // onAuthStateChange에서 자동으로 처리됨
     } catch (error: any) {
       console.error('로그인 실패:', error);
+      // 특정 오류일 때만 가이드 표시
       if (error.code === 'auth/unauthorized-domain') {
+        // 도메인 승인 오류: 도메인 추가 안내만 표시
         setShowDomainGuide(true);
-        addLog('도메인이 승인되지 않았습니다.', 'error');
+        addLog('도메인이 승인되지 않았습니다. Firebase Console에서 도메인을 추가해주세요.', 'error');
       } else if (error.code === 'auth/popup-closed-by-user') {
+        // 사용자가 팝업을 닫은 경우: 가이드 표시 안 함
         addLog('로그인 창이 닫혔습니다.', 'warning');
       } else if (error.code === 'auth/api-key-not-valid' || error.message?.includes('API key')) {
+        // API 키 오류: 설정 가이드 표시
         setShowDomainGuide(true);
         addLog('Firebase API 키가 유효하지 않습니다. .env.local 파일을 확인해주세요.', 'error');
       } else {
+        // 기타 오류: 가이드 표시 안 함
         addLog('로그인에 실패했습니다. 다시 시도해주세요.', 'error');
       }
     }

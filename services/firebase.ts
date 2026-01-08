@@ -154,7 +154,8 @@ export const isFirebaseConfigured = (): boolean => {
     config.apiKey.includes('본인의_') ||
     config.projectId.includes('your_') ||
     config.projectId.includes('본인의_') ||
-    config.apiKey.length < 20; // API 키는 보통 39자 이상
+    config.apiKey === '' ||
+    config.projectId === '';
 
   return !hasPlaceholder;
 };
