@@ -451,20 +451,6 @@ const App: React.FC = () => {
               />
               <span className="relative z-10">구글로 1초 가입하기</span>
             </button>
-            {!isFirebaseReady && (
-              <div className="bg-amber-500/10 border border-amber-500/50 rounded-xl p-4 text-left space-y-2">
-                <div className="flex items-center gap-2 text-amber-400 text-sm font-black">
-                  <AlertTriangle className="w-4 h-4" />
-                  Firebase 설정 필요
-                </div>
-                <p className="text-amber-300/70 text-xs font-bold">
-                  로그인 기능을 사용하려면 .env.local 파일에 실제 Firebase 설정 값을 입력해주세요.
-                </p>
-                <p className="text-amber-300/50 text-[10px] font-bold mt-1">
-                  버튼을 클릭하면 설정 가이드를 확인할 수 있습니다.
-                </p>
-              </div>
-            )}
           </div>
         </section>
         {showDomainGuide && (
@@ -675,12 +661,12 @@ VITE_FIREBASE_APP_ID=1:123456789:web:abcdef`}
               <Sparkles className="w-8 h-8 text-amber-500 animate-pulse" />
               <div className="h-px w-16 bg-gradient-to-r from-transparent via-amber-400 to-transparent"></div>
             </div>
-            <h2 className="text-6xl md:text-7xl font-black tracking-tighter leading-tight text-slate-900">
+            <h2 className="text-6xl md:text-7xl font-black tracking-tighter leading-[1.1] text-slate-900">
               <span className="text-amber-600 italic">
                 Find Your Gold
               </span>
             </h2>
-            <p className="text-slate-600 font-black text-lg md:text-xl">
+            <p className="text-slate-600 font-black text-lg md:text-xl leading-relaxed">
               블로그, 유튜브, 쇼핑몰 성장의 핵심{' '}
               <span className="text-amber-600">'검색 의도'</span>를 분석합니다.
             </p>
@@ -748,7 +734,7 @@ VITE_FIREBASE_APP_ID=1:123456789:web:abcdef`}
               <h4 className="text-xl font-black italic flex items-center gap-2">
                 <Star className="w-5 h-5 text-amber-500" /> Today's Tip
               </h4>
-              <p className="text-sm font-bold text-slate-400 leading-relaxed">
+              <p className="text-sm font-bold text-slate-400 leading-loose">
                 검색량 대비 문서수가 적은 '추천 점수 80점' 이상의 키워드만 골라
                 제목의 맨 앞에 배치하세요. 이것이 바로 상위 노출의 핵심 비결입니다.
               </p>

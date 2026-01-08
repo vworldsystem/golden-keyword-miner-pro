@@ -49,8 +49,8 @@ const KeywordTable: React.FC<KeywordTableProps> = ({ data, onSelectKeyword, isPr
               return (
                 <tr key={kw.id} className={`${index % 2 === 0 ? 'bg-white' : 'bg-slate-50/50'} hover:bg-amber-50 transition-all duration-200 group`}>
                   <td className="px-10 py-8">
-                    <div className="flex flex-col gap-1">
-                      <span className="font-black text-slate-900 text-xl tracking-tight group-hover:text-amber-700">{kw.keyword}</span>
+                    <div className="flex flex-col gap-2">
+                      <span className="font-black text-slate-900 text-xl tracking-tight leading-relaxed group-hover:text-amber-700">{kw.keyword}</span>
                       <span className="text-[10px] text-blue-600 font-black uppercase tracking-widest flex items-center gap-1.5">
                         <ArrowUpRight className="w-3 h-3" />
                         {kw.category}
